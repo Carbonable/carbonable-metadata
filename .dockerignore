@@ -1,0 +1,9 @@
+# flyctl launch added from .gitignore
+**/.idea
+**/.vscode
+**/.env
+**/node_modules
+**/build
+**/tmp
+**/temp
+fly.toml
