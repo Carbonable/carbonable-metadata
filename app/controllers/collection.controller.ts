@@ -12,7 +12,7 @@ const controller = {
         return {
             name: data.name,
             description: data.description,
-            image_data: `data:image/png;base64,${data.image.data}`,
+            image: `data:image/png;base64,${data.image.data}`,
             banner_image_url: data.bannerImageUrl,
             external_url: data.externalUrl,
             youtube_url: data.youtubeUrl,

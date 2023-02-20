@@ -44,7 +44,7 @@ router.route('/:id').get(handler(collection.getOne));
 
 /**
  * @swagger
- * /collection/{id}/value={value}&decimals={decimals}:
+ * /collection/{id}/token?value={value}&decimals={decimals}:
  *   get:
  *     summary: Return a single collection metadata
  *     description: Return a single collection metadata.
@@ -62,9 +62,9 @@ router.route('/:id').get(handler(collection.getOne));
  *         required: true
  *         description: token value
  *       - in: path
- *         name: id
+ *         name: decimals
  *         schema:
- *           type: decimals
+ *           type: integer
  *         required: true
  *         description: token decimals
  *     tags:
