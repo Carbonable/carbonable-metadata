@@ -1,11 +1,13 @@
 
 import { Router } from 'express';
+import docs from './docs.router';
 import metadata from './metadata.router';
 
 import { Request, Response } from 'express';
 
 const router = Router();
 
+router.use('/docs', docs);
 router.use('/', metadata);
 
 // API 404
