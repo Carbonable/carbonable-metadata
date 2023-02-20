@@ -6,7 +6,7 @@ import swaggerUi from 'swagger-ui-express';
 const swaggerDefinition = {
     apiVersion: "1.0.0",
     info: {
-        title: 'Carbonable Indexer API',
+        title: 'Carbonable Metadata API',
         version: '0.0.1',
     },
 };
