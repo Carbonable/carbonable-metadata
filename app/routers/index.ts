@@ -8,7 +8,7 @@ import { Request, Response } from 'express';
 const router = Router();
 
 router.use('/docs', docs);
-router.use('/', metadata);
+router.use('/collection', metadata);
 
 // API 404
 router.use((_request: Request, response: Response) => {

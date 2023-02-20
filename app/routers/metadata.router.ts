@@ -7,27 +7,74 @@ const router = Router();
 
 /**
  * @swagger
- * /metadata/?address=:address&token=:token&value:value:
+ * /collection:
  *   get:
- *     summary: Return the image yielders
- *     description: Return the image yielders corresponding to the specified image id.
+ *     summary: Return all the collection metadata
+ *     description: Return the metadata of all the collections available.
+ *     tags:
+ *       - metadata
+ *     responses:
+ *       '200':
+ *         description: collections found
+*/
+router.route('/').get(handler(collection.getAll));
+
+/**
+ * @swagger
+ * /collection/{id}:
+ *   get:
+ *     summary: Return a single collection metadata
+ *     description: Return a single collection metadata.
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: integer
  *         required: true
- *         description: image database identifier
+ *         description: collection database identifier
  *     tags:
- *       - images
+ *       - metadata
  *     responses:
  *       '200':
- *         description: image yielders found
+ *         description: collection found
  *       '404':
- *         description: image not found
+ *         description: collection not found
 */
-router.route('/').get(handler(collection.getAll));
 router.route('/:id').get(handler(collection.getOne));
-router.route('/:id/value=:value&decimals=:decimals').get(handler(token.getOne));
+
+/**
+ * @swagger
+ * /collection/{id}/value={value}&decimals={decimals}:
+ *   get:
+ *     summary: Return a single collection metadata
+ *     description: Return a single collection metadata.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: collection database identifier
+ *       - in: path
+ *         name: value
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: token value
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: decimals
+ *         required: true
+ *         description: token decimals
+ *     tags:
+ *       - metadata
+ *     responses:
+ *       '200':
+ *         description: collection found
+ *       '404':
+ *         description: collection not found
+*/
+router.route('/:id/token').get(handler(token.getOne));
 
 export default router;
