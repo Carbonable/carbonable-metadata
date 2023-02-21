@@ -3,6 +3,7 @@ import prisma from '../models/database/client';
 import { Request, Response } from 'express';
 import { Prisma, Token, Image, Attribute } from '@prisma/client';
 
+import imageController from './image.controller';
 import attributeController from './attribute.controller';
 
 const controller = {
@@ -10,11 +11,11 @@ const controller = {
         image?: Image;
         attribute?: Attribute[];
         _count?: Prisma.TokenCountOutputType;
-    }) {
+    }, image: string) {
         return {
             name: data.name,
             description: data.description,
-            image: `data:image/png;base64,${data.image.data}`,
+            image,
             external_url: data.externalUrl,
             youtube_url: data.youtubeUrl,
             attributes: data.attribute.map((attribute) => {
@@ -63,8 +64,8 @@ const controller = {
 
     async getOne(request: Request, response: Response) {
         const collectionId = Number(request.params.id);
-        const decimals = Number(request.params.decimals);
-        const value = Number(request.params.value);
+        const decimals = Number(request.query.decimals);
+        const value = Number(request.query.value);
 
         const include = { image: true, attribute: true };
         const where = { collectionId };
@@ -76,7 +77,8 @@ const controller = {
             return response.status(code).json({ message, code });
         }
 
-        return response.status(200).json(controller.format(metadata));
+        const image = imageController.generate(value, decimals);
+        return response.status(200).json(controller.format(metadata, image));
     },
 
     async getAll(_request: Request, response: Response) {
