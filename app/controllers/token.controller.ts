@@ -77,7 +77,7 @@ const controller = {
             return response.status(code).json({ message, code });
         }
 
-        const image = imageController.generate(value, decimals);
+        const image = `https://dev-carbonable-metadata.fly.dev/collection/${request.params.id}/image?value=${request.query.value}&decimals=${request.query.decimals}`;
         return response.status(200).json(controller.format(metadata, image));
     },
 

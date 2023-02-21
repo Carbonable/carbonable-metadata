@@ -50,7 +50,7 @@
   <!-- Outline border style-->
   <linearGradient id="main__border" cx="0" cy="0" r="1" gradientTransform="rotate(-45)">
   <stop offset="0%" stop-color="#0AF2AD" />
-  <stop offset="50%" stop-color="#BAD3CB" />
+  <stop offset="50%" stop-color="#C3C2FF" />
   </linearGradient>
     
   <!-- Carbonable logo style -->
