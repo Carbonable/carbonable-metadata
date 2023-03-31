@@ -18,7 +18,7 @@ const router = Router();
  *       '200':
  *         description: collections found
 */
-router.route('/').get(handler(collection.getAll));
+router.route('/').get(handler(collection.getMain));
 
 /**
  * @swagger

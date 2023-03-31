@@ -56,6 +56,18 @@ const controller = {
         const collections = await prisma.collection.findMany({ include });
         return response.status(200).json(collections.map(collection => controller.format(collection)));
     },
+
+    async getMain(_request: Request, response: Response) {
+        const data = {
+            name: 'Carbon Protocol',
+            description: "For testing purposes only! This collection of NFTs is part of Carbonable's DeFi protocol test series. Come have fun on our testnet and join our growing community of green pioneers! Carbonable's mission is to align the best interests of investors and the planet. We empower anyone to invest in the greatest challenge of our time, by financing nature’s regeneration, while getting a high growing yield. Launching soon on mainnet, be ready!",
+            image: "ipfs://Qmdjj76nkc1HQn8Tr3ertWs9eWkFMBxXQkGwjHEp6mWbig/collection.png",
+            external_url: "https://app.carbonable.io/",
+            banner_image_url: "ipfs://Qmdjj76nkc1HQn8Tr3ertWs9eWkFMBxXQkGwjHEp6mWbig/banner.png",
+            youtube_url: "https://youtu.be/5dZrROBmfKU"
+        };
+        return response.status(200).json(data);
+    },
 }
 
 export default controller;
