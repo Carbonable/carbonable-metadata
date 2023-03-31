@@ -12,6 +12,7 @@ datasource db {
 
 model Collection {
   id             Int    @id @default(autoincrement())
+  slot           Int    @unique
   name           String @unique
   description    String
   externalUrl    String
@@ -33,8 +34,8 @@ model Token {
   image   Image? @relation(fields: [imageId], references: [id])
   imageId Int
 
-  collection   Collection? @relation(fields: [collectionId], references: [id])
-  collectionId Int         @unique
+  collection     Collection? @relation(fields: [collectionSlot], references: [slot])
+  collectionSlot Int         @unique
 
   attribute Attribute[]
 }

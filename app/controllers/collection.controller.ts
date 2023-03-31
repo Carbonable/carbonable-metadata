@@ -19,12 +19,12 @@ const controller = {
         }
     },
 
-    async create(data: { name: string, description: string, externalUrl: string, youtubeUrl: string, imageId: number }) {
+    async create(data: { slot: number, name: string, description: string, externalUrl: string, youtubeUrl: string, imageId: number }) {
         const bannerImageUrl = "ipfs://Qmdjj76nkc1HQn8Tr3ertWs9eWkFMBxXQkGwjHEp6mWbig/banner.png";
         return await prisma.collection.create({ data: { ...data, bannerImageUrl } });
     },
 
-    async read(where: { id?: number, name?: string }, include?: Prisma.CollectionInclude) {
+    async read(where: { id?: number, slot?: number, name?: string }, include?: Prisma.CollectionInclude) {
         return await prisma.collection.findUnique({ where, include });
     },
 
@@ -37,9 +37,9 @@ const controller = {
     },
 
     async getOne(request: Request, response: Response) {
-        const id = Number(request.params.id);
+        const slot = Number(request.params.id);
         const include = { image: true };
-        const where = { id };
+        const where = { slot };
         const metadata = await controller.read(where, include);
 
         if (!metadata) {

@@ -111,6 +111,6 @@ router.route('/:id/token').get(handler(token.getOne));
  *       '404':
  *         description: collection not found
 */
-router.route('/:id/image').get(handler(image.generate));
+router.route('/:id/image').get(handler(image.getOne));
 
 export default router;

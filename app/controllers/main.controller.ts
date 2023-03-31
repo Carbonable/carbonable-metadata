@@ -13,6 +13,7 @@ const controller = {
         fs.readdir(ROOT, (err, folders) => {
             folders.forEach((name) => {
                 const folder = path.join(ROOT, name);
+                const slot = parseInt(name);
                 fs.readdir(folder, async (err, files) => {
                     let file: string;
                     let data: { name: string, description: string, external_url: string, youtube_url: string, attributes: { display_type: string, trait_type: string, value: string | number }[] };
@@ -30,6 +31,7 @@ const controller = {
                     let collectionData = await collection.read({ name: data.name });
                     if (!collectionData) {
                         collectionData = await collection.create({
+                            slot,
                             name: data.name,
                             description: data.description,
                             externalUrl: data.external_url,
@@ -56,7 +58,7 @@ const controller = {
                             externalUrl: data.external_url,
                             youtubeUrl: data.youtube_url,
                             imageId: tokenImage.id,
-                            collectionId: collectionData.id,
+                            collectionSlot: collectionData.slot,
                             attributes: data.attributes,
                         });
                     };

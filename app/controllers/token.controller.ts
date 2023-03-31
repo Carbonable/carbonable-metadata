@@ -28,7 +28,7 @@ const controller = {
         }
     },
 
-    async create(data: { name: string, description: string, externalUrl: string, youtubeUrl: string, imageId: number, collectionId: number, attributes: { display_type: string, trait_type: string, value: string | number }[] }) {
+    async create(data: { name: string, description: string, externalUrl: string, youtubeUrl: string, imageId: number, collectionSlot: number, attributes: { display_type: string, trait_type: string, value: string | number }[] }) {
         const token = await prisma.token.create({
             data: {
                 name: data.name,
@@ -36,7 +36,7 @@ const controller = {
                 externalUrl: data.externalUrl,
                 youtubeUrl: data.youtubeUrl,
                 imageId: data.imageId,
-                collectionId: data.collectionId,
+                collectionSlot: data.collectionSlot,
             }
         });
         for (const attribute of data.attributes) {
@@ -50,11 +50,11 @@ const controller = {
         return token;
     },
 
-    async read(where: { id?: number, name?: string, collectionId?: number }, include?: Prisma.TokenInclude) {
+    async read(where: { id?: number, name?: string, collectionSlot?: number }, include?: Prisma.TokenInclude) {
         return await prisma.token.findUnique({ where, include });
     },
 
-    async update(where: { id?: number, name?: string, collectionId?: number }, data: { name?: string, description?: string, externalUrl?: string, youtubeUrl?: string, imageId?: number, collectionId?: number }) {
+    async update(where: { id?: number, name?: string, collectionSlot?: number }, data: { name?: string, description?: string, externalUrl?: string, youtubeUrl?: string, imageId?: number, collectionId?: number }) {
         return await prisma.token.update({ where, data });
     },
 
@@ -63,12 +63,12 @@ const controller = {
     },
 
     async getOne(request: Request, response: Response) {
-        const collectionId = Number(request.params.id);
+        const collectionSlot = Number(request.params.id);
         const decimals = Number(request.query.decimals);
         const value = Number(request.query.value);
 
         const include = { image: true, attribute: true };
-        const where = { collectionId };
+        const where = { collectionSlot };
         const metadata = await controller.read(where, include);
 
         if (!metadata) {
@@ -77,7 +77,8 @@ const controller = {
             return response.status(code).json({ message, code });
         }
 
-        const image = `https://dev-carbonable-metadata.fly.dev/collection/${request.params.id}/image?value=${request.query.value}&decimals=${request.query.decimals}`;
+        // const image = `https://dev-carbonable-metadata.fly.dev/collection/${collectionSlot}/image?value=${value}&decimals=${decimals}`;
+        const image = `http://localhost:8080/collection/${metadata.image.id}/image?value=${value}&decimals=${decimals}`;
         return response.status(200).json(controller.format(metadata, image));
     },
 

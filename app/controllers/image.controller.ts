@@ -43,7 +43,8 @@ const controller = {
             return response.status(code).json({ message, code });
         }
 
-        return response.status(200).json(image);
+        const img = Buffer.from(image.data, 'base64');
+        return response.status(200).contentType('image/png').send(img);
     },
 
     async getAll(_request: Request, response: Response) {
