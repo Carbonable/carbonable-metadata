@@ -17,9 +17,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(router);
 
-app.listen(PORT, async () => {
-    await main.init();
-    console.log(`\x1b[1;33m\u26a1Running server on : http://localhost:${PORT}/ \u26a1\x1b[0m`);
-});
+app.listen(
+    PORT,
+    async () => {
+        await main.init();
+        console.log(`\x1b[1;33m\u26a1Running server on : http://localhost:${PORT}/ \u26a1\x1b[0m`);
+    }
+);
 
 export default app;

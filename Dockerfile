@@ -6,8 +6,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN corepack enable && corepack prepare pnpm@latest --activate
-RUN pnpm install
+RUN npm install
 
 LABEL fly_launch_runtime="nodejs"
 
