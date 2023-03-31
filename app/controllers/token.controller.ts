@@ -77,8 +77,8 @@ const controller = {
             return response.status(code).json({ message, code });
         }
 
-        // const image = `https://dev-carbonable-metadata.fly.dev/collection/${collectionSlot}/image?value=${value}&decimals=${decimals}`;
-        const image = `http://localhost:8080/collection/${metadata.image.id}/image?value=${value}&decimals=${decimals}`;
+        // const image = `http://localhost:8080/image/${metadata.image.id}?value=${value}&decimals=${decimals}`;
+        const image = `https://dev-carbonable-metadata.fly.dev/image/${metadata.image.id}?value=${value}&decimals=${decimals}`;
         return response.status(200).json(controller.format(metadata, image));
     },
 
